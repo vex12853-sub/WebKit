@@ -1,80 +1,77 @@
 # WebKit
 
-WebKit is a cross-platform web browser engine. On iOS and macOS, it powers Safari, Mail, iBooks, and many other applications. For more information about WebKit, see the [WebKit project website](https://webkit.org/).
+WebKitはクロスプラットフォームのウェブブラウザエンジンです。iOSおよびmacOSでは、Safari、Mail、iBooks、その他多くのアプリケーションを支えています。WebKitに関する詳細は[WebKitプロジェクトウェブサイト](https://webkit.org/)を参照してください。
 
-## Trying the Latest
+## 最新版の試用
 
-On macOS, [download Safari Technology Preview](https://webkit.org/downloads/) to test the latest version of WebKit. On Linux, download [Epiphany Technology Preview](https://webkitgtk.org/epiphany-tech-preview). On Windows, you'll have to build it yourself.
+macOSでは、最新のWebKitを試すために[Safari Technology Previewをダウンロード](https://webkit.org/downloads/)してください。Linuxでは、[Epiphany Technology Previewをダウンロード](https://webkitgtk.org/epiphany-tech-preview)します。Windowsでは、自分でビルドする必要があります。
 
-## Reporting Bugs
+## バグの報告
 
-1. [Search WebKit Bugzilla](https://bugs.webkit.org/query.cgi?format=specific&product=WebKit) to see if there is an existing report for the bug you've encountered.
-2. [Create a Bugzilla account](https://bugs.webkit.org/createaccount.cgi) to report bugs (and comment on them) if you haven't done so already.
-3. File a bug in accordance with [our guidelines](https://webkit.org/bug-report-guidelines/).
+1. [WebKit Bugzillaを検索](https://bugs.webkit.org/query.cgi?format=specific&product=WebKit)して、既に報告されているバグかどうかを確認します。
+2. まだアカウントを作成していない場合は、[Bugzillaアカウントを作成](https://bugs.webkit.org/createaccount.cgi)してバグを報告し、コメントを追加できるようにします。
+3. [ガイドライン](https://webkit.org/bug-report-guidelines/)に従ってバグを報告します。
 
-Once your bug is filed, you will receive email when it is updated at each stage in the [bug life cycle](https://webkit.org/bug-life-cycle). After the bug is considered fixed, you may be asked to download the [latest nightly](https://webkit.org/nightly) and confirm that the fix works for you.
+バグが報告されると、[バグライフサイクル](https://webkit.org/bug-life-cycle)の各段階で更新される度にメールを受け取ります。バグが修正されたと考えられると、[最新のナイトリービルド](https://webkit.org/nightly)をダウンロードして修正が確認できるか尋ねられることがあります。
 
-## Getting the Code
+## コードの取得
 
-Run the following command to clone WebKit's Git repository:
+WebKitのGitリポジトリをクローンするには、以下のコマンドを実行します：
 
 ```
 git clone https://github.com/WebKit/WebKit.git WebKit
 ```
 
-You can enable [git fsmonitor](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corefsmonitor) to make many git commands faster (such as `git status`) with `git config core.fsmonitor true`
+[git fsmonitor](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corefsmonitor)を有効にすると、`git status`などの多くのgitコマンドを高速化できます。以下のコマンドを実行します：
 
-## Building WebKit
+```
+git config core.fsmonitor true
+```
 
-### Building for Apple platforms
+## WebKitのビルド
 
-Install Xcode and its command line tools if you haven't done so already:
+### Appleプラットフォーム用のビルド
 
-1. **Install Xcode** Get Xcode from https://developer.apple.com/downloads. To build WebKit for OS X, Xcode 5.1.1 or later is required. To build WebKit for iOS Simulator, Xcode 7 or later is required.
-2. **Install the Xcode Command Line Tools** In Terminal, run the command: `xcode-select --install`
+まだインストールしていない場合は、Xcodeとそのコマンドラインツールをインストールします：
 
-Run the following command to build a macOS debug build with debugging symbols and assertions:
+1. **Xcodeをインストール** https://developer.apple.com/downloads からXcodeを取得します。OS X用にWebKitをビルドするにはXcode 5.1.1以降が必要です。iOSシミュレータ用にWebKitをビルドするにはXcode 7以降が必要です。
+2. **Xcodeコマンドラインツールをインストール** ターミナルで以下のコマンドを実行します： `xcode-select --install`
+
+デバッグシンボルとアサーションを含むmacOSデバッグビルドを作成するには、以下のコマンドを実行します：
 
 ```
 Tools/Scripts/build-webkit --debug
 ```
 
-For performance testing, and other purposes, use `--release` instead.
+パフォーマンステストや他の目的には、`--release`を使用します。
 
-#### Embedded Builds
+#### 埋め込みビルド
 
-To build for an embedded platform like iOS, tvOS, or watchOS, pass a platform
-argument to `build-webkit`. 
+iOS、tvOS、watchOSなどの埋め込みプラットフォーム用にビルドするには、`build-webkit`にプラットフォーム引数を渡します。
 
-For example, to build a debug build with debugging symbols and assertions for
-embedded simulators:
+例えば、埋め込みシミュレータ用にデバッグシンボルとアサーションを含むデバッグビルドを作成するには：
 
 ```
 Tools/Scripts/build-webkit --debug --<platform>-simulator
 ```
 
-or embedded devices:
+または埋め込みデバイス用には：
+
 ```
 Tools/Scripts/build-webkit --debug --<platform>-device
 ```
 
-where `platform` is `ios`, `tvos` or `watchos`.
+`platform`は`ios`、`tvos`または`watchos`です。
 
-#### Using Xcode
+#### Xcodeの使用
 
-You can open `WebKit.xcworkspace` to build and debug WebKit within Xcode.
-Select the "Everything up to WebKit + Tools" scheme to build the entire
-project.
+`WebKit.xcworkspace`を開いて、Xcode内でWebKitをビルドおよびデバッグできます。"Everything up to WebKit + Tools"スキームを選択して、プロジェクト全体をビルドします。
 
-If you don't use a custom build location in Xcode preferences, you have to
-update the workspace settings to use `WebKitBuild` directory.  In menu bar,
-choose File > Workspace Settings, then click the Advanced button, select
-"Custom", "Relative to Workspace", and enter `WebKitBuild` for both Products
-and Intermediates.
+Xcodeの設定でカスタムビルド場所を使用しない場合は、`WebKitBuild`ディレクトリを使用するようにワークスペース設定を更新する必要があります。メニューバーで、ファイル > ワークスペース設定を選択し、詳細ボタンをクリックして、"カスタム"、"ワークスペースに相対"を選択し、製品と中間ファイルの両方に`WebKitBuild`と入力します。
 
-### Building the GTK Port
+### GTKポートのビルド
 
-For production builds:
+プロダクションビルドの場合：
 
 ```
 cmake -DPORT=GTK -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja
@@ -82,7 +79,7 @@ ninja
 sudo ninja install
 ```
 
-For development builds:
+開発ビルドの場合：
 
 ```
 Tools/gtk/install-dependencies
@@ -90,11 +87,11 @@ Tools/Scripts/update-webkitgtk-libs
 Tools/Scripts/build-webkit --gtk --debug
 ```
 
-For more information on building WebKitGTK, see the [wiki page](https://trac.webkit.org/wiki/BuildingGtk).
+WebKitGTKのビルドに関する詳細は、[wikiページ](https://trac.webkit.org/wiki/BuildingGtk)を参照してください。
 
-### Building the WPE Port
+### WPEポートのビルド
 
-For production builds:
+プロダクションビルドの場合：
 
 ```
 cmake -DPORT=WPE -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja
@@ -102,7 +99,7 @@ ninja
 sudo ninja install
 ```
 
-For development builds:
+開発ビルドの場合：
 
 ```
 Tools/wpe/install-dependencies
@@ -110,48 +107,48 @@ Tools/Scripts/update-webkitwpe-libs
 Tools/Scripts/build-webkit --wpe --debug
 ```
 
-### Building Windows Port
+### Windowsポートのビルド
 
-For building WebKit on Windows, see the [WebKit on Windows page](https://docs.webkit.org/Ports/WindowsPort.html).
+WindowsでのWebKitのビルドについては、[WebKit on Windowsページ](https://docs.webkit.org/Ports/WindowsPort.html)を参照してください。
 
-## Running WebKit
+## WebKitの実行
 
-### With Safari and Other macOS Applications
+### Safariおよびその他のmacOSアプリケーションでの実行
 
-Run the following command to launch Safari with your local build of WebKit:
+以下のコマンドを実行して、ローカルビルドのWebKitでSafariを起動します：
 
 ```
 Tools/Scripts/run-safari --debug
 ```
 
-The `run-safari` script sets the `DYLD_FRAMEWORK_PATH` environment variable to point to your build products, and then launches `/Applications/Safari.app`. `DYLD_FRAMEWORK_PATH` tells the system loader to prefer your build products over the frameworks installed in `/System/Library/Frameworks`.
+`run-safari`スクリプトは、`DYLD_FRAMEWORK_PATH`環境変数をビルド製品を指すように設定し、その後`/Applications/Safari.app`を起動します。`DYLD_FRAMEWORK_PATH`はシステムローダーに、`/System/Library/Frameworks`にインストールされたフレームワークよりもビルド製品を優先するよう指示します。
 
-To run other applications with your local build of WebKit, run the following command:
+他のアプリケーションをローカルビルドのWebKitで実行するには、以下のコマンドを実行します：
 
 ```
 Tools/Scripts/run-webkit-app <application-path>
 ```
 
-### iOS Simulator
+### iOSシミュレータ
 
-Run the following command to launch iOS simulator with your local build of WebKit:
+以下のコマンドを実行して、ローカルビルドのWebKitでiOSシミュレータを起動します：
 
 ```
 run-safari --debug --ios-simulator
 ```
 
-In both cases, if you have built release builds instead, use `--release` instead of `--debug`.
+いずれの場合も、リリースビルドを作成している場合は、`--debug`の代わりに`--release`を使用します。
 
-### Linux Ports
+### Linuxポート
 
-If you have a development build, you can use the `run-minibrowser` script, e.g.:
+開発ビルドがある場合、`run-minibrowser`スクリプトを使用できます。例えば：
 
 ```
 run-minibrowser --debug --wpe
 ```
 
-Pass one of `--gtk`, `--jsc-only`, or `--wpe` to indicate the port to use.
+使用するポートを示すために、`--gtk`、`--jsc-only`、または`--wpe`のいずれかを指定します。
 
-## Contribute
+## 貢献
 
-Congratulations! You’re up and running. Now you can begin coding in WebKit and contribute your fixes and new features to the project. For details on submitting your code to the project, read [Contributing Code](https://webkit.org/contributing-code/).
+おめでとうございます！これでWebKitでコーディングを開始し、プロジェクトに修正や新機能を貢献する準備が整いました。プロジェクトにコードを提出する詳細については、[Contributing Code](https://webkit.org/contributing-code/)を読んでください。
