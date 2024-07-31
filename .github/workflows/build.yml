@@ -30,7 +30,7 @@ jobs:
       run: |
         mkdir -p WebKitBuild/Release
         cd WebKitBuild/Release
-        cmake -G Ninja ../../
+        cmake -G Ninja -DPORT=GTK -DCMAKE_BUILD_TYPE=RelWithDebInfo ../../
         ninja
 
     - name: Test WebKit
